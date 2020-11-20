@@ -33,9 +33,9 @@ shaders_includes = include_directories(
 )
 
 executable('sokolsample', 
-  sources : ['sokolsample.cpp', imgui_sources],
+  sources : ['sokolsample.cpp', 'Gui.cpp', 'Unit.cpp',  imgui_sources],
   dependencies : [deps , sokol_deps],
   include_directories : [imgui_includes, shaders_includes],
-  cpp_args : ['-DSOKOL_IMPL', '-DSOKOL_GLCORE33']
+  # cpp_args : ['-DSOKOL_IMPL', '-DSOKOL_GLCORE33']
 )
 

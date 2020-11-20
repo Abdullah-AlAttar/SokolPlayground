@@ -4,6 +4,10 @@
 //  Demonstrates Dear ImGui UI rendering via sokol_gfx.h and
 //  the utility header sokol_imgui.h
 //------------------------------------------------------------------------------
+
+//   # cpp_args : ['-DSOKOL_IMPL', '-DSOKOL_GLCORE33']
+// #define SOKOL_IMPL
+// #define SOKOL_GLCORE33
 #include "sokol_app.h"
 #include "sokol_gfx.h"
 #include "sokol_time.h"
@@ -13,9 +17,10 @@
 
 // #include ""
 #include "imgui.h"
-#define SOKOL_IMGUI_IMPL
+// #define SOKOL_IMGUI_IMPL
 #include "sokol_imgui.h"
 
+#include "Gui.hpp"
 
 #include <cmath>
 
@@ -27,6 +32,7 @@ static struct {
     sg_pipeline pip;
     sg_bindings bind;
     sg_pass_action pass_action;
+    sq::Gui gui;
 } state;
 
 
@@ -68,8 +74,7 @@ void init(void) {
 
     // use sokol-imgui with all default-options (we're not doing
     // multi-sampled rendering or using non-default pixel formats)
-    simgui_desc_t simgui_desc = { };
-    simgui_setup(&simgui_desc);
+    state.gui.init();
 
     // initial clear color
     state.pass_action.colors[0].action = SG_ACTION_CLEAR;
@@ -141,6 +146,7 @@ void cleanup(void) {
 
 void input(const sapp_event* event) {
     simgui_handle_event(event);
+    
 }
 
 sapp_desc sokol_main(int argc, char* argv[]) {
@@ -152,7 +158,7 @@ sapp_desc sokol_main(int argc, char* argv[]) {
     desc.event_cb = input;
     desc.width = 1024;
     desc.height = 768;
-    desc.gl_force_gles2 = true;
+    // desc.gl_force_gles2 = true;
     desc.window_title = "Dear ImGui (sokol-app)";
     desc.ios_keyboard_resizes_canvas = false;
     return desc;
