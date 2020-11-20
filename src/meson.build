@@ -7,11 +7,11 @@ sokol_shdc = find_program('sokol-shdc', dirs : meson.build_root())
 shaders = [
      {
        'name' : 'triangle.glsl',
-       'path': 'shaders/triangle.glsl',
+       'path':join_paths(meson.project_source_root(), 'src/shaders/triangle.glsl'),
      },
      {
        'name' : 'uniforms.glsl',
-       'path': 'shaders/uniforms.glsl',
+       'path': join_paths(meson.project_source_root(), 'src/shaders/uniforms.glsl'),
      } 
 ]
 
@@ -25,12 +25,6 @@ foreach shader : shaders
     install_dir: join_paths(meson.project_build_root())
   )
 endforeach
-
-build_directory_name = meson.project_build_root().split('/').get(-1)
-
-shaders_includes = include_directories(
-  join_paths('../', build_directory_name)
-)
 
 executable('sokolsample', 
   sources : ['sokolsample.cpp', 'Gui.cpp', 'Unit.cpp',  imgui_sources],

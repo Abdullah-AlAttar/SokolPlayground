@@ -1,19 +1,31 @@
 project('sokolSample', 'c', 'cpp',
   version : '0.1',
-  default_options : ['warning_level=3', 'cpp_std=c++2a']
+  default_options : ['warning_level=3', 'cpp_std=c++17']
 )
 
 c_cmplr = meson.get_compiler('cpp')
+libs_names = []
+message(host_machine.system())
 
-libs_names = [
-  'GL',
-  'dl',
-  'm',
-  'glfw3',
-  'X11',
-  'xi',
-  'Xcursor'
-]
+if host_machine.system() == 'windows'
+  libs_names = [
+    'GL'
+  ]
+  build_directory_name = meson.project_build_root().split('\\').get(-1)
+
+elif host_machine.system() == 'linux'
+  libs_names = [
+    'GL',
+    'dl',
+    'm',
+    'glfw3',
+    'X11',
+    'xi',
+    'Xcursor'
+  ]
+  build_directory_name = meson.project_build_root().split('/').get(-1)
+
+endif
 
 deps = []
 
@@ -38,6 +50,11 @@ imgui_sources = files([
 ])
 
 imgui_includes = include_directories('./third_party/imgui')
+
+shaders_includes = include_directories(
+  build_directory_name
+)
+
 
 subdir('src')
 

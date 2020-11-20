@@ -65,7 +65,7 @@ void init(void) {
     /* if the vertex layout doesn't have gaps, don't need to provide strides and
        offsets */
     sg_layout_desc layout_desc = {};
-    layout_desc.attrs[0].format = SG_VERTEXFORMAT_FLOAT3;
+    layout_desc.attrs[ATTR_vs_position].format = SG_VERTEXFORMAT_FLOAT3;
 
     pipe_desc.layout = layout_desc;
     pipe_desc.label = "triangle-pipeline";
