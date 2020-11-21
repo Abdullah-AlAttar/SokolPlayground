@@ -5,10 +5,6 @@
 #include "sokol_time.h"
 #include "sokol_glue.h"
 
-// #include "triangle.glsl.h"
-// #include "uniforms.glsl.h"
-
-// #include ""
 #include "imgui.h"
 #define SOKOL_IMGUI_IMPL
 #include "sokol_imgui.h"

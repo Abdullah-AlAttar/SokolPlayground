@@ -2,12 +2,12 @@
 
 
 
-sokol_shdc = find_program('sokol-shdc', dirs : meson.build_root())
+sokol_shdc = find_program('sokol-shdc', dirs : meson.project_source_root())
 
 shaders = [
      {
        'name' : 'triangle.glsl',
-       'path':join_paths(meson.project_source_root(), 'src/shaders/triangle.glsl'),
+       'path': join_paths(meson.project_source_root(), 'src/shaders/triangle.glsl'),
      },
      {
        'name' : 'uniforms.glsl',

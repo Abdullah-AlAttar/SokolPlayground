@@ -23,6 +23,8 @@
 #include "Gui.hpp"
 
 #include <cmath>
+#include <iostream>
+
 
 static uint64_t last_time = 0;
 static bool show_test_window = false;
@@ -146,7 +148,11 @@ void cleanup(void) {
 
 void input(const sapp_event* event) {
     simgui_handle_event(event);
-    
+    if(event->mouse_button == SAPP_MOUSEBUTTON_LEFT and event->type == SAPP_EVENTTYPE_MOUSE_DOWN)
+    {
+        std::cout<< event->mouse_x <<" "<<event->mouse_y<<std::endl;
+    }
+
 }
 
 sapp_desc sokol_main(int argc, char* argv[]) {
