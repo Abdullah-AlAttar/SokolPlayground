@@ -1,4 +1,4 @@
-@vs vs
+@vs vs_uni
 in vec3 position;
 
 uniform vs_params {
@@ -10,7 +10,7 @@ void main() {
 }
 @end
 
-@fs fs
+@fs fs_uni
 uniform fs_params {
     vec4 ourColor;
 };
@@ -22,4 +22,4 @@ void main() {
 }
 @end
 
-@program simple vs fs
+@program simple_uniform vs_uni fs_uni

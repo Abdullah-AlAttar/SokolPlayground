@@ -54,7 +54,7 @@ void init(void)
     sg_setup(&desc);
     stm_setup();
 
-    sg_shader shd = sg_make_shader(simple_shader_desc());
+    sg_shader shd = sg_make_shader(simple_uniform_shader_desc());
 
     float vertices[] = {
         // positions         // texture coords
@@ -92,7 +92,7 @@ void init(void)
        offsets */
     sg_layout_desc layout_desc = {};
 
-    layout_desc.attrs[ATTR_vs_position].format = SG_VERTEXFORMAT_FLOAT3;
+    layout_desc.attrs[ATTR_vs_uni_position].format = SG_VERTEXFORMAT_FLOAT3;
     pipe_desc.layout = layout_desc;
     pipe_desc.label  = "triangle-pipeline";
 
@@ -159,8 +159,10 @@ void frame(void)
         ImGui::ShowDemoWindow();
     }
     ImGui::End();
+
+
     vs_params_t vs_params = {};
-    // const float *glm_mat = ,(const float*)glm::value_ptr(glm::mat4(1));
+
     glm::mat4 transform = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
     transform = glm::scale(transform, glm::vec3(0.1, 0.1, 0.1));
     transform = glm::translate(
