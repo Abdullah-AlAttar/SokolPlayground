@@ -2,7 +2,7 @@
 
 
 
-sokol_shdc = find_program('sokol-shdc', dirs : meson.project_source_root())
+sokol_shdc = find_program(plat_ops['sokol_shdc_name'], dirs : meson.project_source_root())
 
 shaders = [
      {
@@ -20,7 +20,7 @@ foreach shader : shaders
     shader['name'] ,
     input: [shader['path']],
     output: [shader['name'] + '.h'],
-    command: [sokol_shdc, '-i', '@INPUT@', '-o', '@OUTPUT@', '-l', 'glsl330'],
+    command: [sokol_shdc, '-i', '@INPUT@', '-o', '@OUTPUT@', '-l', plat_ops['sokol_shdc_backend']],
     install: true,
     install_dir: join_paths(meson.project_build_root())
   )

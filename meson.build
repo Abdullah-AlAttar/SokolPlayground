@@ -5,13 +5,17 @@ project('sokolSample', 'c', 'cpp',
 
 c_cmplr = meson.get_compiler('cpp')
 libs_names = []
-message(host_machine.system())
+
+plat_ops = { }
+
 
 if host_machine.system() == 'windows'
   libs_names = [
     'GL'
   ]
-  build_directory_name = meson.project_build_root().split('\\').get(-1)
+  plat_ops += { 'build_directory_name': meson.project_build_root().split('\\').get(-1) }
+  plat_ops += { 'sokol_shdc_name': 'sokol-shdc.exe' }
+  plat_ops += { 'sokol_shdc_backend': 'hlsl5' }
 
 elif host_machine.system() == 'linux'
   libs_names = [
@@ -23,8 +27,9 @@ elif host_machine.system() == 'linux'
     'xi',
     'Xcursor'
   ]
-  build_directory_name = meson.project_build_root().split('/').get(-1)
-
+  plat_ops += { 'build_directory_name': meson.project_build_root().split('/').get(-1) }
+  plat_ops += { 'sokol_shdc_name': 'sokol-shdc' }
+  plat_ops += { 'sokol_shdc_backend': 'glsl330'}
 endif
 
 deps = []
@@ -53,9 +58,6 @@ imgui_sources = files([
 ])
 
 imgui_includes = include_directories('./third_party/imgui')
-
-
-
 
 subdir('src')
 
