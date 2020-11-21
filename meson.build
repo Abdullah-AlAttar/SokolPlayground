@@ -54,10 +54,6 @@ imgui_sources = files([
 
 imgui_includes = include_directories('./third_party/imgui')
 
-shaders_includes = include_directories(
-  build_directory_name
-)
-
 
 
 
