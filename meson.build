@@ -48,7 +48,7 @@ deps += glm_dep
 
 sokol_includes = ['./third_party/sokol', './third_party/sokol/util']
 
-sokol_deps = declare_dependency(include_directories : include_directories(sokol_includes))
+sokol_dep = declare_dependency(include_directories : include_directories(sokol_includes))
 
 imgui_sources = files([
   './third_party/imgui/imgui.cpp',

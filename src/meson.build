@@ -28,7 +28,7 @@ endforeach
 
 executable('sokolsample', 
   sources : ['main.cpp', 'Gui.cpp', 'Unit.cpp',  imgui_sources],
-  dependencies : [deps , sokol_deps],
+  dependencies : [deps , sokol_dep],
   include_directories : [imgui_includes],
   # cpp_args : ['-DSOKOL_IMPL', '-DSOKOL_GLCORE33']
 )
