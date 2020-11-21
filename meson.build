@@ -37,6 +37,9 @@ foreach lib : libs_names
   deps += tmp
 endforeach
 
+glm_dep = dependency('glm', fallback: ['glm', 'glm_dep'])
+
+deps += glm_dep
 
 sokol_includes = ['./third_party/sokol', './third_party/sokol/util']
 
@@ -54,6 +57,8 @@ imgui_includes = include_directories('./third_party/imgui')
 shaders_includes = include_directories(
   build_directory_name
 )
+
+
 
 
 subdir('src')
