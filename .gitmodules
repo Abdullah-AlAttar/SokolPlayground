@@ -1,6 +1,0 @@
-[submodule "third_party/sokol"]
-	path = third_party/sokol
-	url = https://github.com/floooh/sokol
-[submodule "third_party/imgui"]
-	path = third_party/imgui
-	url = https://github.com/ocornut/imgui.git
