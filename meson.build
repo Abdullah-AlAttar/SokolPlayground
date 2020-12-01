@@ -3,7 +3,7 @@ project('sokolSample', 'c', 'cpp',
   default_options : ['warning_level=3', 'cpp_std=c++17']
 )
 
-c_cmplr = meson.get_compiler('cpp')
+CXX = meson.get_compiler('cpp')
 libs_names = []
 
 plat_ops = { }
@@ -44,20 +44,11 @@ endforeach
 
 glm_dep = dependency('glm', fallback: ['glm', 'glm_dep'])
 
-deps += glm_dep
 
-sokol_includes = ['./third_party/sokol', './third_party/sokol/util']
+sokol_dep = dependency('sokol', fallback : ['sokol', 'sokol_dep'])
+imgui_dep = dependency('imgui', fallback : ['imgui', 'imgui_dep'])
 
-sokol_dep = declare_dependency(include_directories : include_directories(sokol_includes))
-
-imgui_sources = files([
-  './third_party/imgui/imgui.cpp',
-  './third_party/imgui/imgui_draw.cpp',
-  './third_party/imgui/imgui_widgets.cpp',
-  './third_party/imgui/imgui_demo.cpp'
-])
-
-imgui_includes = include_directories('./third_party/imgui')
+deps += [glm_dep, sokol_dep, imgui_dep]
 
 subdir('src')
 

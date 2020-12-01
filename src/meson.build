@@ -27,9 +27,9 @@ foreach shader : shaders
 endforeach
 
 executable('sokolsample', 
-  sources : ['main.cpp', 'Gui.cpp', 'Unit.cpp',  imgui_sources],
-  dependencies : [deps , sokol_dep],
-  include_directories : [imgui_includes],
+  sources : ['main.cpp', 'Gui.cpp', 'Unit.cpp'],
+  dependencies : [deps],
+  include_directories : [],
   # cpp_args : ['-DSOKOL_IMPL', '-DSOKOL_GLCORE33']
 )
 
