@@ -11,7 +11,7 @@ plat_ops = { }
 
 if host_machine.system() == 'windows'
   libs_names = [
-    'GL'
+    # 'GL'
   ]
   plat_ops += { 'build_directory_name': meson.project_build_root().split('\\').get(-1) }
   plat_ops += { 'sokol_shdc_name': 'sokol-shdc.exe' }

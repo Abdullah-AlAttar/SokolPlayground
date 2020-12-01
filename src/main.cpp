@@ -106,12 +106,6 @@ void frame(void)
     const double delta_time = stm_sec(stm_laptime(&last_time));
     simgui_new_frame(width, height, delta_time);
 
-    // fs_params.ourColor = { 0.f, greenValue, 0.f, 1.f };
-    // fs_params.ourColor[0] = 0.f;
-    // fs_params.ourColor[1] = 0.f;
-    // fs_params.ourColor[2] = 0.f;
-    // fs_params.ourColor[3] = 1.f;
-
     // 1. Show a simple window
     // Tip: if we don't call ImGui::Begin()/ImGui::End() the widgets appears in
     // a window automatically called "Debug"
@@ -186,8 +180,7 @@ void cleanup(void)
 void input(const sapp_event* event)
 {
     simgui_handle_event(event);
-    if (event->mouse_button == SAPP_MOUSEBUTTON_LEFT
-        and event->type == SAPP_EVENTTYPE_MOUSE_DOWN)
+    if (event->mouse_button == SAPP_MOUSEBUTTON_LEFT && event->type == SAPP_EVENTTYPE_MOUSE_DOWN)
     {
         state.input_state.mouse_x = event->mouse_x / sapp_width() - 0.5f;
         state.input_state.mouse_y
