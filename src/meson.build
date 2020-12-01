@@ -29,6 +29,6 @@ endforeach
 executable('sokolsample', 
   include_directories : include_directories(join_paths('..', plat_ops['build_directory_name'], 'src')),
   dependencies : deps,
-  sources : ['main.cpp', 'Gui.cpp', 'Unit.cpp'],
+  sources : ['main.cpp', 'Unit.cpp'],
 )
 

@@ -1,26 +1,12 @@
-//------------------------------------------------------------------------------
-//  imgui-sapp.c
-//
-//  Demonstrates Dear ImGui UI rendering via sokol_gfx.h and
-//  the utility header sokol_imgui.h
-//------------------------------------------------------------------------------
 
-//   # cpp_args : ['-DSOKOL_IMPL', '-DSOKOL_GLCORE33']
-// #define SOKOL_IMPL
-// #define SOKOL_GLCORE33
 #include "sokol_app.h"
 #include "sokol_gfx.h"
 #include "sokol_glue.h"
 #include "sokol_time.h"
-// #include "triangle.glsl.h"
 #include "uniforms.glsl.h"
 
-// #include ""
 #include "imgui.h"
-// #define SOKOL_IMGUI_IMPL
 #include "sokol_imgui.h"
-
-#include "Gui.hpp"
 
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
@@ -38,8 +24,7 @@ static struct
     sg_pipeline pip;
     sg_bindings bind;
     sg_pass_action pass_action;
-    sq::Gui gui;
-    struct 
+    struct
     {
         float mouse_x = 0;
         float mouse_y = 0;
@@ -64,10 +49,10 @@ void init(void)
         -0.5f, 0.5f,  0.0f // top left
     };
     sg_buffer_desc vertex_buffer_desc = {};
-    vertex_buffer_desc.size = sizeof(vertices);
-    vertex_buffer_desc.content = vertices;
-    vertex_buffer_desc.label = "quad-vertices";
-    state.bind.vertex_buffers[0] = sg_make_buffer(vertex_buffer_desc);
+    vertex_buffer_desc.size           = sizeof(vertices);
+    vertex_buffer_desc.content        = vertices;
+    vertex_buffer_desc.label          = "quad-vertices";
+    state.bind.vertex_buffers[0]      = sg_make_buffer(vertex_buffer_desc);
 
     /* an index buffer with 2 triangles */
     uint16_t indices[] = {
@@ -76,32 +61,33 @@ void init(void)
     };
 
     sg_buffer_desc idx_buffer_desc = {};
-    idx_buffer_desc.type = SG_BUFFERTYPE_INDEXBUFFER;
-    idx_buffer_desc.size = sizeof(indices);
-    idx_buffer_desc.content = indices;
-    idx_buffer_desc.label   = "quad-indices";
+    idx_buffer_desc.type           = SG_BUFFERTYPE_INDEXBUFFER;
+    idx_buffer_desc.size           = sizeof(indices);
+    idx_buffer_desc.content        = indices;
+    idx_buffer_desc.label          = "quad-indices";
 
     state.bind.index_buffer = sg_make_buffer(idx_buffer_desc);
 
-    // Pipelines 
+    // Pipelines
     sg_pipeline_desc pipe_desc = {};
 
-    pipe_desc.shader = shd;
+    pipe_desc.shader     = shd;
     pipe_desc.index_type = SG_INDEXTYPE_UINT16;
     /* if the vertex layout doesn't have gaps, don't need to provide strides and
        offsets */
     sg_layout_desc layout_desc = {};
 
     layout_desc.attrs[ATTR_vs_uni_position].format = SG_VERTEXFORMAT_FLOAT3;
-    pipe_desc.layout = layout_desc;
-    pipe_desc.label  = "triangle-pipeline";
+    pipe_desc.layout                               = layout_desc;
+    pipe_desc.label                                = "triangle-pipeline";
 
     state.pip = sg_make_pipeline(pipe_desc);
     //---------------------------------------------------------
 
     // use sokol-imgui with all default-options (we're not doing
     // multi-sampled rendering or using non-default pixel formats)
-    state.gui.init();
+    simgui_desc_t simgui_desc = {};
+    simgui_setup(&simgui_desc);
 
     // initial clear color
     state.pass_action.colors[0].action = SG_ACTION_CLEAR;
@@ -160,16 +146,17 @@ void frame(void)
     }
     ImGui::End();
 
-
     vs_params_t vs_params = {};
 
-    glm::mat4 transform = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
+    glm::mat4 transform = glm::mat4(
+        1.0f); // make sure to initialize matrix to identity matrix first
     transform = glm::scale(transform, glm::vec3(0.1, 0.1, 0.1));
     transform = glm::translate(
         transform,
         glm::vec3(state.input_state.mouse_x, state.input_state.mouse_y, 0.0f));
-    // transform = glm::rotate(transform, (float)stm_now(), glm::vec3(0.0f, 0.0f, 1.0f));
-    const float *glm_mat = (const float*)glm::value_ptr(transform);
+    // transform = glm::rotate(transform, (float)stm_now(), glm::vec3(0.0f,
+    // 0.0f, 1.0f));
+    const float* glm_mat = (const float*)glm::value_ptr(transform);
 
     for (int i = 0; i < 16; ++i)
         vs_params.transform[i] = glm_mat[i];
@@ -177,7 +164,8 @@ void frame(void)
     // the sokol_gfx draw pass
     sg_begin_default_pass(&state.pass_action, width, height);
     sg_apply_pipeline(state.pip);
-    sg_apply_uniforms(SG_SHADERSTAGE_VS, SLOT_vs_params, &vs_params, sizeof(vs_params));
+    sg_apply_uniforms(SG_SHADERSTAGE_VS, SLOT_vs_params, &vs_params,
+                      sizeof(vs_params));
 
     sg_apply_uniforms(SG_SHADERSTAGE_FS, SLOT_fs_params, &fs_params,
                       sizeof(fs_params));
