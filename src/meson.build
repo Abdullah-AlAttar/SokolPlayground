@@ -27,9 +27,8 @@ foreach shader : shaders
 endforeach
 
 executable('sokolsample', 
+  include_directories : include_directories(join_paths('..', plat_ops['build_directory_name'], 'src')),
+  dependencies : deps,
   sources : ['main.cpp', 'Gui.cpp', 'Unit.cpp'],
-  dependencies : [deps],
-  include_directories : [],
-  # cpp_args : ['-DSOKOL_IMPL', '-DSOKOL_GLCORE33']
 )
 

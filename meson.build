@@ -50,5 +50,9 @@ imgui_dep = dependency('imgui', fallback : ['imgui', 'imgui_dep'])
 
 deps += [glm_dep, sokol_dep, imgui_dep]
 
+
+configure_file(input: 'sokol-shdc', output: 'sokol-shdc', copy : true)
+configure_file(input: 'sokol-shdc.exe', output: 'sokol-shdc.exe', copy : true)
+
 subdir('src')
 
